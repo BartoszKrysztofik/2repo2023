@@ -5,6 +5,7 @@
     margin: 0;
     font-family: "Rubik", sans-serif;
 }
+
 button {
     cursor: pointer;
 }
@@ -24,10 +25,10 @@ main {
     margin: 0 auto;
     height: auto;
 }
-#form {
+/* #form {
     width: 100%;
     max-width: 528px;
-}
+} */
 .right {
     position: relative;
     display: flex;
@@ -98,12 +99,7 @@ main {
 .visible {
     display: block;
 }
-.show {
-    opacity: 1;
-}
-.show a {
-    display: inline;
-}
+
 .textInput {
     position: relative;
     margin-top: 26px;
@@ -131,6 +127,166 @@ main {
     line-height: 20px;
     color: #64606a;   
 }
+
+.tooltip {
+   position: relative;
+}
+
+.tooltip::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 0;
+    transition: 0.3s;
+    opacity: 0;
+    border-right: 20px solid #ff6939;
+    border-bottom: 20px solid rgba(0,0,0,0);
+    width: 0;
+    height: 0;
+}
+
+.tooltip:hover::after, .tooltip:hover::before{
+    opacity: 1;
+}
+
+.tooltip::after{
+    content: "Opcja niedostepna";
+    position: absolute;
+    top:-45px;
+    left: -10px;
+    opacity: 0;
+    transition: 0.3s;
+    border-radius: 7px;
+    width: 150px;
+    height: 40px;
+    background-color: #ff6939;
+    line-height: 40px;
+    color: #190f27;
+}
+
+.notification {
+    position: absolute;
+    left:0;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    width: 100%;
+    max-width: 528px;
+    height: 40px;
+    background-color: #fff;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+.success {
+    background-color: #cfdbd9;
+    color: #284642;
+}
+.success::before{
+    content: "";
+    position: absolute;
+    left: -50%;
+    display: block;
+    width: 50%;
+    height: 40px;
+    background-color: #cfdbd9;
+}
+.failed {
+    background-color: #f0eeed;
+    color: #ce0737
+}
+.failed::before{
+    content: "";
+    position: absolute;
+    left: -50%;
+    display: block;
+    width: 50%;
+    height: 40px;
+    background-color: #f0eeed;
+}
+.blur {
+    filter: blur(10px);
+    pointer-events: none;
+}
+.popup {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+}
+.showPopup{
+    display: flex;
+}
+.loader{
+    display: block;
+    position: relative;
+    animation: rotate 1s infinite linear;
+    border: 3px solid red;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-radius:50%;
+    width: 150px;
+    height: 150px;
+    background-color: transparent;
+}
+.loader::before {
+    content: "";
+    position: absolute;
+    animation: rotate 2s infinite linear;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 3px solid #ff6939;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    background-color: transparent;
+}
+.loader::after{
+    content: "";
+    position: absolute;
+    animation: rotate 1s linear;
+    top: 12px;
+    left:12px;
+    right: 12px;
+    bottom: 12px;
+    border: 3px solid aqua;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    background-color: transparent;
+} 
+
+.show {
+    opacity: 1;
+}
+
+.show a {
+    display: inline;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
+    }
+}
+
 @media (max-width: 600px) {
     .lineWrapper > p {
         font-size: 10px;

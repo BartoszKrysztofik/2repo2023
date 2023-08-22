@@ -6,6 +6,12 @@ const lastName = document.getElementById("lastName");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const terms = document.getElementById("terms");
+//nie moge dodac #, nie dziala od razu, do sprawdzenia
+
+const success = document.getElementById("success");
+const failed = document.getElementById("failed");
+const main = document.querySelector("main");
+const popup = document.querySelector("#popup");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -16,6 +22,7 @@ form.addEventListener("submit", (e) => {
       lastName: lastName.value,
       password: password.value,
     };
+    console.log("data", data);
     register(data);
     localStorage.setItem("registered_email", email.value);
   } else {
@@ -39,8 +46,8 @@ function validateRegisterForm() {
   const firstNameRegex = /^[A-Z][a-z]{1,19}$/;
   const lastNameRegex = /^[A-Z][a-z]{1,19}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^[A-Z][a-z]{1,19}$/;
-  // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   if (!firstNameRegex.test(firstName.value)) {
     firstName.classList.add("error");
@@ -88,9 +95,9 @@ function validateRegisterForm() {
     proceed.terms = true;
   }
 
-  function shouldProceed(obj) {
-    for (let key in obj) {
-      if (!obj[key]) {
+  function shouldProceed(proceed) {
+    for (let key in proceed) {
+      if (!proceed[key]) {
         return false;
       }
     }
@@ -98,22 +105,48 @@ function validateRegisterForm() {
   }
   return shouldProceed(proceed);
 }
+
 async function register(data) {
   try {
     const response = await fetch(`${BASE_URL}auth/register`, {
       method: "POST",
-      headers: { "constent-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    if (response.status === 200 || 201) {
+    console.log("response", response);
+    if (response.status === 200 || 201 || 204) {
       const result = await response.json();
       console.log(result);
-      window.location.href = "confirm.html ";
+      handleSuccess();
     } else if (response.status === 403 || 404) {
+      handleFailure("Taki uzytkownik istnieje, uzyj innego maila");
       return;
     }
+    console.log("response-status", response.status);
   } catch (error) {
+    handleFailure("Cos poszlo nie tak");
     console.log(error);
   }
-  return;
+  console.log("response1", response);
 }
+const handleSuccess = function () {
+  main.classList.add("blur");
+  popup.classList.add("showPopup");
+  setTimeout(() => {
+    main.classList.remove("blur");
+    popup.classList.remove("showPopup");
+    success.classList.add("show");
+    setTimeout(() => {
+      success.classList.remove("show");
+      window.location.href = "confirm.html";
+    }, 1500);
+  }, 1500);
+};
+
+const handleFailure = function (message) {
+  failed.innerHTML = message;
+  failed.classList.add("show");
+  setTimeout(() => {
+    failed.classList.remove("show");
+  }, 1500);
+};

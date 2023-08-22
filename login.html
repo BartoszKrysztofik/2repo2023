@@ -13,11 +13,13 @@
     <main>
     <div class="left">
         <div class="login">
+            <div class="notification success" id="success">Logowanie zakonczone sukcesem</div>
+            <div class="notification failed" id="failed">Taki uzytkownik nie istnieje<a href="index.html">Zarejestruj sie</a></div>
             <p>Zaloguj się</p>
-            <button>
+            <button class="tooltip">
                 <img src="./Image/png/fb.png">Logowanie przez Facebook
             </button>
-            <button>
+            <button class="tooltip">
                 <img src="./Image/png/insta.png">Logowanie przez Instagram
             </button>
             <div class="lineWrapper">
@@ -58,6 +60,9 @@
         </div>
     </div>
     </main>
+    <div id="popup" class="popup">
+        <span class="loader"></span>
+    </div>
     <script src="./miesoJS/login.js"></script>
 </body>
 </html>

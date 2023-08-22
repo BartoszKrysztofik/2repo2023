@@ -1,13 +1,26 @@
 const form = document.getElementById("form");
 const success = document.getElementById("success");
 const main = document.querySelector("main");
+const popup = document.querySelector("popup"); //#popup?
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (validateRecoveryForm()) {
-    console.log("request");
+    main.classList.add("blur");
+    popup.classList.add("showPopup");
+    setTimeout(() => {
+      main.classList.remove("blur");
+      popup.classList.remove("showPopup");
+      success.classList.add("show");
+      setTimeout(() => {
+        success.classList.remove("show");
+      }, 1500);
+    }, 1500);
   } else {
-    console.log("error");
+    failed.classList.add("show");
+    setTimeout(() => {
+      failed.classList.remove("show");
+    }, 1500);
   }
 });
 function validateRecoveryForm() {

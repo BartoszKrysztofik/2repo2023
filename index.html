@@ -12,9 +12,11 @@
     <main>
          <div class="left">
             <div class="register">
+            <div class="notification success" id="success">Rejestracja zakonczona sukcesem</div>
+            <div class="notification failed" id="failed">Upsss, cos nie poszlo</div>
                 <p>Zarejestruj się</p>
-                <button><img src="./Image/png/fb.png">Rejestracja przez Facebook</button>
-                <button><img src="./Image/png/insta.png">Rejestracja przez Instagram</button>
+                <button class="tooltip"><img src="./Image/png/fb.png">Rejestracja przez Facebook</button>
+                <button class="tooltip"><img src="./Image/png/insta.png">Rejestracja przez Instagram</button>
                 <div class="lineWrapper first">
                     <p>lub za pomoca maila</p>
                 </div>
@@ -74,6 +76,9 @@
             </div>
          </div>
     </main>
+    <div id="popup" class="popup">
+        <span class="loader"></span>
+    </div>
     <script src="./miesoJS/register.js"></script>
 </body>
 </html>
